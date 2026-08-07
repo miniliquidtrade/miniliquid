@@ -9,7 +9,7 @@ export const SITE = {
   x: "https://x.com/miniliquidtrade",
   xHandle: "@miniliquidtrade",
   /** Open-source repository (the project is MIT-licensed and public). */
-  github: "https://github.com/Pheor0/miniliquid",
+  github: "https://github.com/miniliquidtrade/miniliquid",
   /** When the legal docs were last revised — shown on each legal page. */
   legalUpdated: "7 August 2026",
 } as const;

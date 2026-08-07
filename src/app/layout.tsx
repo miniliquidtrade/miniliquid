@@ -11,22 +11,22 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
 const DESCRIPTION =
-  "Miniliquid — a fast, minimal, type-to-trade terminal for every market on Hyperliquid.";
+  "miniliquid — a fast, minimal, type-to-trade terminal for every market on Hyperliquid.";
 
 export const metadata: Metadata = {
   ...(SITE_URL ? { metadataBase: new URL(SITE_URL) } : {}),
-  title: "Miniliquid",
+  title: "miniliquid",
   description: DESCRIPTION,
-  applicationName: "Miniliquid",
+  applicationName: "miniliquid",
   openGraph: {
-    title: "Miniliquid",
+    title: "miniliquid",
     description: DESCRIPTION,
-    siteName: "Miniliquid",
+    siteName: "miniliquid",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Miniliquid",
+    title: "miniliquid",
     description: DESCRIPTION,
   },
 };

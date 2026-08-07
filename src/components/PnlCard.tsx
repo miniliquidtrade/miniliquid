@@ -273,7 +273,7 @@ export function PnlCard({
         : `${up ? "+" : "-"}$${Math.abs(data.pnlUsd).toFixed(2)}`;
     const text = `${headline} on $${data.coin} ${
       data.isLong ? "long" : "short"
-    }${data.leverage ? ` ${Math.round(data.leverage)}×` : ""} — trading on Miniliquid`;
+    }${data.leverage ? ` ${Math.round(data.leverage)}×` : ""} — trading on miniliquid`;
     // Link to the canonical domain, not the deployment host.
     const site = `https://${host()}`;
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(

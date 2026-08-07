@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 // Branded card shown when a Miniliquid link is unfurled (X, Telegram, iMessage…).
-export const alt = "Miniliquid — type-to-trade every market on Hyperliquid";
+export const alt = "miniliquid — type-to-trade every market on Hyperliquid";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

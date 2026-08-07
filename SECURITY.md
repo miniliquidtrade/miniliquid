@@ -11,7 +11,7 @@ within a few days.
 
 ## What matters here
 
-Miniliquid is a **non-custodial static frontend**. It holds no user funds and
+miniliquid is a **non-custodial static frontend**. It holds no user funds and
 runs no backend that stores keys or proxies trades:
 
 - Signing happens **client-side** (injected wallets, or a Privy embedded wallet).
@@ -33,4 +33,4 @@ a server holding money. Reports we especially want:
 - Missing security headers that don't lead to a concrete exploit.
 - Automated scanner output without a demonstrated impact.
 
-Thanks for helping keep Miniliquid users safe.
+Thanks for helping keep miniliquid users safe.
