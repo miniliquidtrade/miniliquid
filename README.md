@@ -1,5 +1,7 @@
 # miniliquid
 
+**Live at [miniliquid.trade](https://miniliquid.trade)**
+
 A free, open-source, non-custodial frontend for [Hyperliquid](https://hyperliquid.xyz).
 Minimal and fast — type a ticker, set leverage, go long or short.
 
