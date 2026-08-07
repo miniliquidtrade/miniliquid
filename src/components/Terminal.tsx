@@ -369,8 +369,8 @@ export function Terminal() {
         {!query && !address && (
           <div className="ml-rise mt-24 flex flex-col items-center px-4 text-center sm:mt-32">
             <p className="max-w-md text-[14px] font-medium leading-relaxed text-term-fg">
-              Type-to-trade every market on Hyperliquid. Perps on crypto,
-              stocks, forex &amp; commodities. Minimal, fast, non-custodial.{" "}
+              A free open-source frontend for Hyperliquid. Minimal, fast,
+              non-custodial.{" "}
               <span className="text-term-dim">//</span>
             </p>
             <p className="mt-2 text-[11px] text-term-dim">
