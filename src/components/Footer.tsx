@@ -12,11 +12,11 @@ export function Footer() {
     <footer className="mx-auto w-full max-w-2xl px-4 py-8 text-[10px] leading-relaxed text-term-dim">
       <div className="border-t border-term-line pt-4">
         <p>
-          <span className="text-term-mid">miniliquid</span> is an independent,
-          open-source interface. Not affiliated with Hyperliquid. Non-custodial ·
-          no fees · your keys, your funds. Trading perpetuals is risky and can
-          lose you everything; not available to U.S. persons or other restricted
-          jurisdictions.
+          <span className="text-term-mid">miniliquid</span> is a free,
+          open-source frontend for Hyperliquid. Minimal, fast, non-custodial.
+          Not affiliated with Hyperliquid. No fees · your keys, your funds.
+          Trading perpetuals is risky and can lose you everything; not available
+          to U.S. persons or other restricted jurisdictions.
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 uppercase tracking-wider">
           <Link href="/terms" className="hover:text-term-fg">

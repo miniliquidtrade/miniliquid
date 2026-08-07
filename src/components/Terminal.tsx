@@ -39,14 +39,26 @@ const TOUR_KEY = "hlterm_tour_seen";
 const MAX_RESULTS = 20;
 
 // Known commodity tickers, so we can guarantee a category mix in Popular.
-// Everything on a non-main DEX that isn't a commodity is treated as a stock.
+// Everything on a non-main DEX that isn't a commodity or FX pair is a stock.
 const COMMODITIES = new Set([
   "GOLD", "XAU", "SILVER", "XAG", "PLATINUM", "XPT", "PALLADIUM", "XPD",
   "OIL", "WTI", "CRUDE", "BRENT", "NATGAS", "NGAS", "GAS", "COPPER", "HG",
 ]);
 
-function category(m: Market): "crypto" | "commodity" | "stock" {
-  if (COMMODITIES.has(m.name.toUpperCase())) return "commodity";
+// Standard FX pairs (Hyperliquid's TradFi FX markets, e.g. EURUSD, USDJPY).
+const FOREX = new Set([
+  "EURUSD", "USDJPY", "GBPUSD", "USDCHF", "AUDUSD", "USDCAD", "NZDUSD",
+  "EURGBP", "EURJPY", "GBPJPY", "EURCHF", "AUDJPY", "CADJPY", "CHFJPY",
+  "NZDJPY", "EURAUD", "EURCAD", "EURNZD", "GBPCHF", "GBPAUD", "GBPCAD",
+  "AUDNZD", "AUDCAD", "AUDCHF", "CADCHF", "NZDCAD", "NZDCHF",
+  "USDCNH", "USDMXN", "USDSEK", "USDNOK", "USDSGD", "USDHKD",
+  "USDZAR", "USDTRY", "USDINR",
+]);
+
+function category(m: Market): "crypto" | "commodity" | "fx" | "stock" {
+  const n = m.name.toUpperCase();
+  if (COMMODITIES.has(n)) return "commodity";
+  if (FOREX.has(n)) return "fx";
   return m.dex === "" ? "crypto" : "stock";
 }
 
@@ -137,7 +149,7 @@ export function Terminal() {
   }, [agentError, notify]);
 
   // Popular chips — the most liquid markets (24h volume + open interest),
-  // balanced so crypto, stocks and commodities are all represented.
+  // a tight set balanced across crypto, equities, FX and commodities.
   const popular = useMemo(() => {
     const tradable = markets.filter(
       (m) => m.volume24h > 0 && m.openInterest > 0
@@ -147,26 +159,29 @@ export function Terminal() {
       crypto: [],
       stock: [],
       commodity: [],
+      fx: [],
     };
     for (const m of tradable) buckets[category(m)].push(m);
     for (const k in buckets) buckets[k].sort((a, b) => score(b) - score(a));
 
-    // Guarantee a mix, then backfill from the deepest bucket (crypto).
+    // Balanced mix (2 crypto · 2 equities · 1 FX · 1 commodity), then backfill
+    // from the deepest bucket (crypto) if a category is short.
     const pick = [
-      ...buckets.crypto.slice(0, 6),
-      ...buckets.stock.slice(0, 3),
-      ...buckets.commodity.slice(0, 3),
+      ...buckets.crypto.slice(0, 2),
+      ...buckets.stock.slice(0, 2),
+      ...buckets.fx.slice(0, 1),
+      ...buckets.commodity.slice(0, 1),
     ];
     const chosen = new Set(pick.map((m) => m.coin));
-    for (const m of buckets.crypto.slice(6)) {
-      if (pick.length >= 12) break;
+    for (const m of buckets.crypto.slice(2)) {
+      if (pick.length >= 6) break;
       if (!chosen.has(m.coin)) {
         pick.push(m);
         chosen.add(m.coin);
       }
     }
     // Present the row ranked by liquidity.
-    return pick.sort((a, b) => score(b) - score(a)).slice(0, 12);
+    return pick.sort((a, b) => score(b) - score(a)).slice(0, 6);
   }, [markets]);
 
   // Stable so memoized TradeLine rows don't re-render when the callback would
@@ -364,16 +379,11 @@ export function Terminal() {
           </div>
         )}
 
-        {/* Disconnected landing — value prop fills the void before a wallet is
-            connected and no search is active. */}
+        {/* Disconnected landing — a quiet prompt before a wallet is connected
+            and no search is active. */}
         {!query && !address && (
           <div className="ml-rise mt-12 flex flex-col items-center px-4 text-center sm:mt-16">
-            <p className="max-w-md text-[14px] font-medium leading-relaxed text-term-fg">
-              A free open-source frontend for Hyperliquid. Minimal, fast,
-              non-custodial.{" "}
-              <span className="text-term-dim">//</span>
-            </p>
-            <p className="mt-2 text-[11px] text-term-dim">
+            <p className="text-[11px] text-term-dim">
               Connect a wallet, or sign up with an email, to start.
             </p>
           </div>
