@@ -196,7 +196,7 @@ export function Terminal() {
   }, [markets, query]);
 
   return (
-    <div className="min-h-screen bg-term-bg">
+    <div className="bg-term-bg">
       {/* Slim header */}
       <header className="flex min-h-10 flex-wrap items-center justify-between gap-x-3 gap-y-1.5 px-3 py-1.5">
         <div className="flex items-center gap-2">
@@ -367,7 +367,7 @@ export function Terminal() {
         {/* Disconnected landing — value prop fills the void before a wallet is
             connected and no search is active. */}
         {!query && !address && (
-          <div className="ml-rise mt-24 flex flex-col items-center px-4 text-center sm:mt-32">
+          <div className="ml-rise mt-12 flex flex-col items-center px-4 text-center sm:mt-16">
             <p className="max-w-md text-[14px] font-medium leading-relaxed text-term-fg">
               A free open-source frontend for Hyperliquid. Minimal, fast,
               non-custodial.{" "}
