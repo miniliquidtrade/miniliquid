@@ -56,9 +56,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="bg-term-bg text-term-fg font-mono antialiased">
+      <body className="flex min-h-screen flex-col bg-term-bg text-term-fg font-mono antialiased">
         <Providers>
-          {children}
+          <div className="flex-1">{children}</div>
           <Footer />
         </Providers>
       </body>
