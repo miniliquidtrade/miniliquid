@@ -2,9 +2,11 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 
 /**
- * Global footer: the standing "independent / not affiliated / non-custodial /
- * no fees" disclaimer plus links to the legal pages and the project's public
- * homes. Rendered on every route from the root layout. Deliberately quiet —
+ * Global footer: the standing "open-source / not affiliated / non-custodial"
+ * disclaimer plus links to the legal pages (Terms / Risk / Privacy) and the
+ * project's public homes. Rendered on every route from the root layout. The
+ * risk and jurisdiction language lives on the linked pages, not here.
+ * Deliberately quiet —
  * term-dim text, a single hairline rule — so it never competes with the app.
  */
 export function Footer() {
@@ -14,9 +16,7 @@ export function Footer() {
         <p>
           <span className="text-term-mid">miniliquid</span> is a free,
           open-source frontend for Hyperliquid. Minimal, fast, non-custodial.
-          Not affiliated with Hyperliquid. No fees · your keys, your funds.
-          Trading perpetuals is risky and can lose you everything; not available
-          to U.S. persons or other restricted jurisdictions.
+          Not affiliated with Hyperliquid.
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 uppercase tracking-wider">
           <Link href="/terms" className="hover:text-term-fg">
