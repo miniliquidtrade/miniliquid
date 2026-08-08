@@ -390,7 +390,7 @@ export async function placeTpSlOrders(params: {
       p: px,
       s: sz,
       r: true,
-      t: { trigger: { triggerPx: px, isMarket: false, tpsl: "tp" } },
+      t: { trigger: { isMarket: false, triggerPx: px, tpsl: "tp" } },
       c: leverageCloid(leverage),
     });
   }
