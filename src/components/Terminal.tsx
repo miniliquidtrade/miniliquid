@@ -65,15 +65,13 @@ function category(m: Market): "crypto" | "commodity" | "fx" | "stock" {
 export function Terminal() {
   const { markets, isLoading } = useMarkets();
   const { address, source } = useWallet();
-  const { accountValue, spotUsdc, available } = useAccount();
-  // Total equity, correct for both account modes WITHOUT double-counting.
-  // These two figures overlap rather than add up, so we take the max:
-  //  - Standard: funds sit in perp → accountValue is the equity (spot ~0).
-  //  - Unified: the full equity (margin + unrealized P&L + free cash) reports
-  //    under the spot/unified balance, while accountValue is only the perp
-  //    subset. Summing them counted unrealized P&L twice when a position was
-  //    open; max() picks the true total.
-  const balance = Math.max(accountValue, spotUsdc);
+  const { accountValue, available } = useAccount();
+  // Account balance = the real USDC equity of the account (cash + open-position
+  // value + unrealized P&L), straight from HL's marginSummary.accountValue.
+  // Stable when a position opens — equity doesn't change, it just moves into
+  // margin. (The old max(accountValue, spotUsdc) heuristic double-counted and
+  // inflated the balance the moment a position opened.)
+  const balance = accountValue;
   const { active: agentActive, enabling, enable, disable, error: agentError } =
     useAgent();
   const { notify } = useToast();
@@ -241,7 +239,7 @@ export function Terminal() {
             <>
               <span
                 className="text-[10px] text-term-dim"
-                title="Total account value (perp + spot / unified balance)"
+                title="Your account value in USDC (cash + open positions)"
               >
                 Balance{" "}
                 <AnimatedNumber
